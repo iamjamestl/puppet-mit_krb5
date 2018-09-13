@@ -2,6 +2,7 @@
 stages:
   - syntax
   - unit
+  - deploy
 
 cache:
   paths:
@@ -39,3 +40,8 @@ parallel_spec-Ruby 2.4.4-Puppet ~> 5.5:
   variables:
     PUPPET_GEM_VERSION: '~> 5.5'
 
+deploy_environment:
+  stage: deploy
+  script:
+    - PUPPET_MODULE_NAME="${PUPPET_MODULE_NAME:-${CI_PROJECT_DIR#*/puppet-}}"
+    - curl -k -X POST -F token=$DEPLOY_TOKEN -F ref=production -F "variables[PUPPET_MODULE]=${PUPPET_MODULE_NAME}" https://gitlab.umd.edu/api/v4/projects/17/trigger/pipeline
