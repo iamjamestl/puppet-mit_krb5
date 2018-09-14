@@ -5,17 +5,18 @@
 1. [Overview](#overview)
 2. [Dependencies](#dependencies)
 3. [Examples](#examples)
-4. [Classes and Resources](#classes-and-resources)
+4. [Classes](#classes)
     - [mit\_krb5](#mit_krb5)
     - [mit\_krb5::install](#mit_krb5install)
+5. [Defined Types](#defined-types)
     - [mit\_krb5::realm](#mit_krb5realm)
     - [mit\_krb5::logging](#mit_krb5logging)
     - [mit\_krb5::domain\_realm](#mit_krb5domain_realm)
     - [mit\_krb5::appdefaults](#mit_krb5appdefaults)
     - [mit\_krb5::dbmodules](#mit_krb5dbmodules)
-5. [Limitations](#limitations)
-6. [License](#license)
-7. [Development](#development)
+6. [Limitations](#limitations)
+7. [License](#license)
+8. [Development](#development)
 
 
 # Overview
@@ -102,7 +103,7 @@ mit_krb5::domain_realm { 'EXAMPLE.COM':
 }
 ```
 
-# Classes and Resources
+# Classes
 
 The module was structured into resources/classes that resemble the sections of
 krb5.conf.
@@ -174,6 +175,11 @@ parameter, do so before declaring/including mit\_krb5 or use hiera.
 ### Parameters
 
 - `packages` - Override facter-derived defaults for Kerberos packages (default: undef) 
+
+# Defined Types
+
+Any of the types defined by this module can be declared in Puppet code or
+declared in Hiera via the corresponding parameters of the `mit_krb5` class.
 
 ## mit\_krb5::realm
 
