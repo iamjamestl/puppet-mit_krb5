@@ -84,6 +84,10 @@
 # [*pkinit_anchors*]
 #   This relation allows you set the path of a certificate authority file.
 #
+# [*rotate_servers*]
+#   Whether to apply a random rotation to the list of KDCs and admin servers so
+#   that the server usage is more evenly distributed.  (Default: `false`)
+#
 # === Examples
 #
 #  mit_krb5::realm { 'TEST.COM':
@@ -103,18 +107,19 @@
 # Copyright (c) IN2P3 Computing Centre, IN2P3, CNRS
 #
 define mit_krb5::realm(
-  $kdc                 = '',
-  $master_kdc          = '',
-  $admin_server        = '',
-  $database_module     = '',
-  $default_domain      = '',
-  $v4_instance_convert = '',
-  $v4_realm            = '',
-  $auth_to_local_names = '',
-  $auth_to_local       = '',
-  $kpasswd_server      = '',
-  $v4_realm_convert    = '',
-  $pkinit_anchors      = '',
+  $kdc                    = '',
+  $master_kdc             = '',
+  $admin_server           = '',
+  $database_module        = '',
+  $default_domain         = '',
+  $v4_instance_convert    = '',
+  $v4_realm               = '',
+  $auth_to_local_names    = '',
+  $auth_to_local          = '',
+  $kpasswd_server         = '',
+  $v4_realm_convert       = '',
+  $pkinit_anchors         = '',
+  Boolean $rotate_servers = false,
 ) {
 
   include ::mit_krb5

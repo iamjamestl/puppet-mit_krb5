@@ -209,6 +209,21 @@
 # [*krb5_conf_mode*]
 #   File mode for krb5.conf.  (Default: 0444)
 #
+# [*appdefaults*]
+#   A hash description of `mit_krb5::appdefaults` resources to create.
+#
+# [*capaths*]
+#   A hash description of `mit_krb5::capaths` resources to create.
+#
+# [*dbmodules*]
+#   A hash description of `mit_krb5::dbmodules` resources to create.
+#
+# [*domain_realms*]
+#   A hash description of `mit_krb5::domain_realm` resources to create.
+#
+# [*realms*]
+#   A hash description of `mit_krb5::realm` resources to create.
+#
 # === Examples
 #
 #  class { 'mit_krb5':
@@ -266,7 +281,12 @@ class mit_krb5(
   String $krb5_conf_group           = 'root',
   String $krb5_conf_mode            = '0444',
   Boolean $alter_etc_services       = false,
-  Boolean $krb5_conf_warn           = true
+  Boolean $krb5_conf_warn           = true,
+  Hash[String, Hash] $appdefaults   = {},
+  Hash[String, Hash] $capaths       = {},
+  Hash[String, Hash] $dbmodules     = {},
+  Hash[String, Hash] $domain_realms = {},
+  Hash[String, Hash] $realms        = {},
 ) {
   # SECTION: Parameter validation {
   # Boolean-type parameters are not type-validated at this time.
@@ -306,6 +326,13 @@ class mit_krb5(
     order   => '01libdefaults',
     content => template('mit_krb5/libdefaults.erb'),
   }
+
+  ensure_resources('mit_krb5::appdefaults', $appdefaults)
+  ensure_resources('mit_krb5::capaths', $capaths)
+  ensure_resources('mit_krb5::dbmodules', $dbmodules)
+  ensure_resources('mit_krb5::domain_realm', $domain_realms)
+  ensure_resources('mit_krb5::realm', $realms)
+
   anchor { 'mit_krb5::end': }
   # END Resource creation }
 
